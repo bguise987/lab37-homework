@@ -35,6 +35,28 @@ npm run dev           # runs on http://localhost:5173
 | bob      | password2 | Globex Foods |
 | carol    | password3 | Acme Bakery + Globex Foods |
 
+# Testing
+Stress test backend:
+- python3 tests/integration/stress_test.py (backend must be running)
+Stress test  →  http://localhost:8000
+Duration per level: 5s  |  Concurrency levels: [1, 2, 5, 10, 20, 50]
+
+Logging in... OK
+
+ Concurrency    Requests    Errors         RPS
+------------------------------------------------
+           1        4094         0       818.7
+           2        5259         0      1051.4
+           5        7060         0      1411.5
+          10        6945         0      1387.9
+          20        6588         0      1315.3
+          50        5606      1635      1114.2
+
+================================================
+Peak throughput: 1411.5 req/s  (concurrency=5)
+
+I believe given the spec of "5,000-10,000 requests per day", which translates to about 0.1157 requests/second that this performance should be sufficient.
+
 # Next steps / future thoughts
 Given the desire to keep time spent under 4 hours, shortcuts were certainly taken. Below are some of the things I would look to implement in the future:
 - Real authentication, of course. Please don't tell all of my cybersecurity friends that I did an MVP with plaintext passwords :)
@@ -54,3 +76,5 @@ Given the desire to keep time spent under 4 hours, shortcuts were certainly take
 - After those changes I cannot login to the system. It's saying, "Invalid username or password."
 - Please adjust the css on the DashboardView page to place the username directly underneath the "Sign out" button, like how company name is under "Recipes"
     - Note: I hated the way this looked, so I discarded the change and edited the file myself.
+- I just created a high level tests directory and subdirectories for frontend, backend, and integration. Let's build an integration test which stress tests the
+  backend and outputs the maximum requests per second that it can handle. This test should be easy to run locally.
