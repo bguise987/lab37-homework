@@ -15,5 +15,8 @@ Given the desire to keep time spent under 4 hours, shortcuts were certainly take
 - Support for images in recipes
 - Automatic updating of yield information based on ingredient changes
 - Don't *actually* delete any recipes within the database - this would make it easy for users to recover accidentally deleted content, and preserves data for company research and usage
+- Better user management - there should be owners, supervisors, team members, etc. with appropriate permissions at each level for different actions such as deleting a recipe
+- Better company management - users should be able to belong to multiple companies, and it should be considered that perhaps a company would have multiple locations with disperate menus
 
 # Claude Code Prompts Used
+-
