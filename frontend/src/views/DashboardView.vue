@@ -46,6 +46,7 @@ async function handleLogout() {
           Switch company
         </button>
         <button class="btn-secondary" @click="router.push('/recipes/new')">+ New Recipe</button>
+        <span class="username">{{ auth.username }}</span>
         <button class="btn-ghost" @click="handleLogout">Sign out</button>
       </div>
     </header>
@@ -82,4 +83,5 @@ h1 { margin: 0; line-height: 1.2; }
 button { padding: 0.45rem 0.9rem; border-radius: 4px; cursor: pointer; font-size: 0.9rem; }
 .btn-secondary { background: #3b82f6; color: #fff; border: none; }
 .btn-ghost { background: transparent; border: 1px solid #ccc; }
+.username { font-size: 0.9rem; color: #6b7280; align-self: center; }
 </style>

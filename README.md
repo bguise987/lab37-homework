@@ -50,3 +50,4 @@ Given the desire to keep time spent under 4 hours, shortcuts were certainly take
 - I completed the Python dependency installation. Please proceed with scaffolding the frontend.
 -  Let's make a couple minor tweaks here. Upon login, let's show the company name that the user belongs to. Given that we support a user in multiple companies,
   let's show that as a list and let them select between them.
+- Let's make another tweak - the frontend should also display the username. Let's try the upperr right, close to the sign out button.

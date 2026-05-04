@@ -30,7 +30,10 @@ async function handleLogout() {
         </li>
       </ul>
 
-      <button class="btn-ghost" @click="handleLogout">Sign out</button>
+      <div class="footer">
+        <span class="username">{{ auth.username }}</span>
+        <button class="btn-ghost" @click="handleLogout">Sign out</button>
+      </div>
     </div>
   </div>
 </template>
@@ -66,5 +69,7 @@ h1 { margin: 0 0 0.25rem; font-size: 1.4rem; }
   font-weight: 500;
 }
 .company-btn:hover { background: #f0f9ff; border-color: #3b82f6; }
+.footer { display: flex; align-items: center; gap: 0.75rem; }
+.username { font-size: 0.9rem; color: #6b7280; }
 .btn-ghost { background: transparent; border: 1px solid #ccc; padding: 0.45rem 0.9rem; border-radius: 4px; cursor: pointer; font-size: 0.9rem; }
 </style>

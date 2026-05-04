@@ -5,6 +5,7 @@ import axios from 'axios'
 export const useAuthStore = defineStore('auth', () => {
   const token = ref(localStorage.getItem('token') || '')
   const userId = ref(Number(localStorage.getItem('userId')) || null)
+  const username = ref(localStorage.getItem('username') || '')
   const companies = ref(JSON.parse(localStorage.getItem('companies') || '[]'))
   const selectedCompanyId = ref(Number(localStorage.getItem('selectedCompanyId')) || null)
 
@@ -12,13 +13,15 @@ export const useAuthStore = defineStore('auth', () => {
     companies.value.find(c => c.id === selectedCompanyId.value) ?? null
   )
 
-  async function login(username, password) {
-    const { data } = await axios.post('/api/auth/login', { username, password })
+  async function login(usernameInput, passwordInput) {
+    const { data } = await axios.post('/api/auth/login', { username: usernameInput, password: passwordInput })
     token.value = data.token
     userId.value = data.user_id
+    username.value = data.username
     companies.value = data.companies
     localStorage.setItem('token', data.token)
     localStorage.setItem('userId', data.user_id)
+    localStorage.setItem('username', data.username)
     localStorage.setItem('companies', JSON.stringify(data.companies))
 
     // Auto-select if only one company
@@ -41,10 +44,12 @@ export const useAuthStore = defineStore('auth', () => {
     } finally {
       token.value = ''
       userId.value = null
+      username.value = ''
       companies.value = []
       selectedCompanyId.value = null
       localStorage.removeItem('token')
       localStorage.removeItem('userId')
+      localStorage.removeItem('username')
       localStorage.removeItem('companies')
       localStorage.removeItem('selectedCompanyId')
     }
@@ -54,5 +59,5 @@ export const useAuthStore = defineStore('auth', () => {
     return { Authorization: `Bearer ${token.value}` }
   }
 
-  return { token, userId, companies, selectedCompanyId, selectedCompany, login, selectCompany, logout, authHeaders }
+  return { token, userId, username, companies, selectedCompanyId, selectedCompany, login, selectCompany, logout, authHeaders }
 })

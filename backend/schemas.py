@@ -18,6 +18,7 @@ class CompanyInfo(BaseModel):
 class LoginResponse(BaseModel):
     token: str
     user_id: int
+    username: str
     companies: list[CompanyInfo]
 
 
