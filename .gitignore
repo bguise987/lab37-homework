@@ -218,6 +218,3 @@ docs/_book
 test/
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,python,vue
-
-# Ignore the local database file
-backend/recipes.db
