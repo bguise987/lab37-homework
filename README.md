@@ -5,7 +5,7 @@ I then took these thoughts and moved them into different markdown files for Clau
 
 Within the DATABASE.md it is noted that SQLite was chosen for simplicity of local development and for ease to the reviewers. In production I would look to PostgreSQL, as it's generally a great starting point for systems such as this.
 
-For this homework I also chose Python for the backend as I am personally more familiar with it at this time. Were I to stand up something at Lab37 though, I would look to Go first as that's the language the team seems to be standardizing around at this time.
+For this homework I also chose Python for the backend as I am personally more familiar with it at this time. Were I to stand up something at Lab37 though, I would look to Go first as that's the language the team seems to be standardizing around at this time (when standing up a new project or component I always consider both the technical requirements and current team strengths).
 
 # How to run the project
 
