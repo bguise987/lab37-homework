@@ -57,6 +57,11 @@ Peak throughput: 1411.5 req/s  (concurrency=5)
 
 I believe given the spec of "5,000-10,000 requests per day", which translates to about 0.1157 requests/second that this performance should be sufficient.
 
+Ensure users can only access recipes from companies they are a part of:
+```bash
+pytest tests/backend/test_company_isolation.py -v
+```
+
 # Next steps / future thoughts
 Given the desire to keep time spent under 4 hours, shortcuts were certainly taken. Below are some of the things I would look to implement in the future:
 - Real authentication, of course. Please don't tell all of my cybersecurity friends that I did an MVP with plaintext passwords :)
@@ -78,3 +83,4 @@ Given the desire to keep time spent under 4 hours, shortcuts were certainly take
     - Note: I hated the way this looked, so I discarded the change and edited the file myself.
 - I just created a high level tests directory and subdirectories for frontend, backend, and integration. Let's build an integration test which stress tests the
   backend and outputs the maximum requests per second that it can handle. This test should be easy to run locally.
+- Let's add a backend test to ensure that a user cannot retrieve or submit a recipe for a company that they do not belong to.
