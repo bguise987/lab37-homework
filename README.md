@@ -1,5 +1,5 @@
 # General approach
-I started by reading through the prompt and sending over some questions to Cody. From there I spent some time writing out my initial thoughts on architecture and design, because what's the fun in shoving the prompt as-is into Claude?
+I started by reading through the prompt and sending over some questions to Cody. From there I spent some time writing out my initial thoughts on architecture and design, because what's the fun in just shoving the prompt as-is into Claude?
 
 I then took these thoughts and moved them into different markdown files for Claude (and the homework reviewers) to parse. Most architectural decisions are laid out in the relevant markdown file, but I will provide the occasional high level note in this README.
 
@@ -36,10 +36,10 @@ npm run dev           # runs on http://localhost:5173
 | alice    | password1 | Acme Bakery |
 | bob      | password2 | Globex Foods |
 | carol    | password3 | Acme Bakery + Globex Foods |
-│ diana    │ password4 │ The Bowl Co. ││
-│ evan     │ password5 │ Poke Palace    │
-│ fiona    │ password6 │ Mesa Verde Kitchen
-│ grace    │ password7 │ Harvest Table
+| diana    | password4 | The Bowl Co. |
+| evan     | password5 | Poke Palace  |
+| fiona    | password6 | Mesa Verde Kitchen |
+| grace    | password7 | Harvest Table |
 
 # Testing
 Stress test backend:
@@ -72,6 +72,33 @@ To run the front end tests:
 ```bash
 cd frontend && npm test
 ```
+
+# Screenshots!
+
+Initial app login
+![App Login](readme_images/Login_screen.png)
+
+Dashboard recipes
+![Dashboard recipes](readme_images/Dashboard_recipes.png)
+
+Dashboard Search Recipes
+![Dashboard search recipes](readme_images/Dashboard_search_recipes.png)
+
+View Recipe
+![View recipe](readme_images/View_recipe.png)
+
+Edit Recipe
+![Edit Recipe 1](readme_images/Edit_recipe_1.png)
+![Edit Recipe 2](readme_images/Edit_recipe_2.png)
+
+Add Recipe
+![Add Recipe](readme_images/Add_recipe.png)
+
+User login for multiple companies
+![User login multiple companies](readme_images/User_multiple_companies.png)
+
+Dashboard for multiple companies (note switch company button)
+![Dashboard multiple companies](readme_images/Dashboard_multiple_companies.png)
 
 # Next steps / future thoughts
 Given the desire to keep time spent under 4 hours, shortcuts were certainly taken. Below are some of the things I would look to implement in the future:
