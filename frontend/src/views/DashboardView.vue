@@ -39,14 +39,13 @@ async function handleLogout() {
     <header>
       <div class="title-group">
         <h1>Recipes</h1>
-        <span class="company-name">{{ auth.selectedCompany?.name }}</span>
+        <span class="company-name">{{ auth.selectedCompany?.name }} - {{ auth.username }}</span>
       </div>
       <div class="header-actions">
         <button v-if="auth.companies.length > 1" class="btn-ghost" @click="router.push('/select-company')">
           Switch company
         </button>
         <button class="btn-secondary" @click="router.push('/recipes/new')">+ New Recipe</button>
-        <span class="username">{{ auth.username }}</span>
         <button class="btn-ghost" @click="handleLogout">Sign out</button>
       </div>
     </header>
