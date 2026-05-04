@@ -4,45 +4,81 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project overview
 
-A multi-company recipe management system built as a homework assignment for Lab37. The codebase is currently in the design phase — the markdown files in the repo root document the planned architecture.
+A multi-company recipe management system built as a homework assignment for Lab37.
 
 ## Tech stack
 
-- **Frontend**: Vue 3, served from a local dev server
-- **Backend**: Python + FastAPI, served from a local dev server
-- **Database**: SQLite (local/dev); PostgreSQL would be used in production
+- **Frontend**: Vue 3 + Vite + Vue Router + Pinia + Axios (`frontend/`)
+- **Backend**: Python + FastAPI + SQLAlchemy (`backend/`)
+- **Database**: SQLite (`backend/recipes.db`); PostgreSQL would be used in production
+
+## Running the project
+
+**Backend** (activate virtualenv first):
+```bash
+cd backend
+python3 seed.py          # one-time: creates recipes.db with sample data
+uvicorn main:app --reload --port 8000
+```
+API docs at http://localhost:8000/docs.
+
+**Frontend:**
+```bash
+cd frontend
+npm run dev              # http://localhost:5173
+```
+Vite proxies `/api` → `http://localhost:8000`, so no CORS setup needed in dev.
 
 ## Architecture
 
 Three-tier web app: Vue 3 SPA → FastAPI REST backend → SQLite database.
 
-### Database schema (planned)
+### Key backend files
+
+| File | Purpose |
+|------|---------|
+| `backend/main.py` | FastAPI app, CORS middleware, router registration |
+| `backend/database.py` | SQLAlchemy engine + `get_db` dependency |
+| `backend/models.py` | ORM models: `Company`, `User`, `Recipe` |
+| `backend/schemas.py` | Pydantic request/response schemas |
+| `backend/auth.py` | In-memory session store, `get_current_user` dependency, `require_company_access` |
+| `backend/routes/auth.py` | `POST /api/auth/login`, `POST /api/auth/logout` |
+| `backend/routes/recipes.py` | CRUD endpoints under `/api/recipes` |
+| `backend/seed.py` | Populates DB with two companies, three users, sample recipes |
+
+### Key frontend files
+
+| File | Purpose |
+|------|---------|
+| `frontend/src/stores/auth.js` | Pinia store: token + userId, persisted to localStorage |
+| `frontend/src/router/index.js` | Routes + auth guard |
+| `frontend/src/views/LoginView.vue` | Login form |
+| `frontend/src/views/DashboardView.vue` | Recipe list with client-side search |
+| `frontend/src/views/RecipeView.vue` | Read-only recipe detail |
+| `frontend/src/views/RecipeEditView.vue` | Create/edit form (also handles delete) |
+
+### Database schema
 
 - **Companies**: `id`, `name`, `address`
-- **Users**: `id`, `username`, `password` (plaintext — MVP only), `company_ids`, `created_at` (UTC), `last_login_at` (UTC)
-- **Recipes**: `id`, `ingredients` (newline-separated), `instructions` (newline-separated), `yield_grams`, `created_by_user_id`, `last_edited_by_user_id`, `company_id`
-
-### Backend API endpoints (planned)
-
-- `POST /login`, `POST /logout` — basic auth
-- `GET /recipes?user_id=&company_id=` — list recipes filtered to companies the user belongs to
-- `POST /recipes` — add recipe
-- `PUT /recipes/{id}` — edit recipe
-- `DELETE /recipes/{id}` — delete recipe
+- **Users**: `id`, `username`, `password` (plaintext — MVP only), `company_ids` (JSON string), `created_at`, `last_login_at`
+- **Recipes**: `id`, `title`, `ingredients` (newline-separated), `instructions` (newline-separated), `yield_grams`, `company_id` (FK), `created_by`, `last_edited_by`, `created_at`, `updated_at`
 
 ### Access control
 
-Recipes are scoped to a company. Users belong to one or more companies and can only see/edit recipes for their associated companies. This must be enforced on every backend endpoint — see TESTS.md.
+Every recipe endpoint checks `recipe.company_id in user.company_ids` via `require_company_access()` in `backend/auth.py`. Violating this returns HTTP 403.
+
+Auth uses a Bearer token in the `Authorization` header. The `get_current_user` FastAPI dependency validates it on every protected route.
 
 ## Known shortcuts (intentional MVP decisions)
 
-- Passwords stored in plaintext — explicitly noted as not production-ready
-- Hard deletes on recipes (no soft-delete / recovery)
-- No image support for recipes
-- Yield info is static (no auto-recalculation when ingredients change)
+- Passwords stored in plaintext
+- In-memory session store (resets on server restart)
+- Hard deletes on recipes
+- No image support
+- Yield info is static (no auto-recalculation)
 
 ## Tests
 
-Two key test areas documented in TESTS.md:
+Two key test areas (TESTS.md):
 1. Cross-company isolation — users must not access recipes from companies they don't belong to
-2. Backend/database performance — maximum requests per second the stack can serve
+2. Backend/database performance — maximum requests per second

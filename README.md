@@ -9,6 +9,30 @@ For this homework I also chose Python for the backend as I am personally more fa
 
 # How to run the project
 
+**Backend** (requires Python 3.11+ with a virtual environment):
+```bash
+cd backend
+pip install -r requirements.txt
+python seed.py        # one-time: creates recipes.db with sample data
+uvicorn main:app --reload --port 8000
+```
+
+Interactive API docs available at http://localhost:8000/docs once running.
+
+**Frontend:**
+```bash
+cd frontend
+npm install
+npm run dev           # runs on http://localhost:5173
+```
+
+**Seed credentials:**
+| Username | Password  | Access |
+|----------|-----------|--------|
+| alice    | password1 | Acme Bakery |
+| bob      | password2 | Globex Foods |
+| carol    | password3 | Acme Bakery + Globex Foods |
+
 # Next steps / future thoughts
 Given the desire to keep time spent under 4 hours, shortcuts were certainly taken. Below are some of the things I would look to implement in the future:
 - Real authentication, of course. Please don't tell all of my cybersecurity friends that I did an MVP with plaintext passwords :)
@@ -16,7 +40,9 @@ Given the desire to keep time spent under 4 hours, shortcuts were certainly take
 - Automatic updating of yield information based on ingredient changes
 - Don't *actually* delete any recipes within the database - this would make it easy for users to recover accidentally deleted content, and preserves data for company research and usage
 - Better user management - there should be owners, supervisors, team members, etc. with appropriate permissions at each level for different actions such as deleting a recipe
-- Better company management - users should be able to belong to multiple companies, and it should be considered that perhaps a company would have multiple locations with disperate menus
+- Better company management - users can belong to multiple companies in this, but it's a rudimentary setup. It should also be considered that perhaps a company would have multiple locations with disperate menus
 
 # Claude Code Prompts Used
--
+- [Plan] You have parsed the markdown files for different architecture decisions for the recipe management system that I am implementing. Please take me through next
+  steps to setup the initial implementation of this system.
+- I completed the Python dependency installation. Please proceed with scaffolding the frontend.
