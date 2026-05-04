@@ -84,3 +84,8 @@ Given the desire to keep time spent under 4 hours, shortcuts were certainly take
 - I just created a high level tests directory and subdirectories for frontend, backend, and integration. Let's build an integration test which stress tests the
   backend and outputs the maximum requests per second that it can handle. This test should be easy to run locally.
 - Let's add a backend test to ensure that a user cannot retrieve or submit a recipe for a company that they do not belong to.
+- Great, let's tweak the feature to add recipes. Instead of a large text box for adding ingredients, let's make that a component to type in the ingredient, and
+  then have a corresponding bin number that is auto populated based on its spot in the list. The user should be able to easily drag the ingredients around to
+  reorder the list. Do not change how the ingredients are stored in the database. The user should not be able to add more than 20 ingredients.
+- This looks awesome! We need to tweak how recipes are viewed though. Let's alter the ingredients list to automatically show which bin that ingredient belongs in.
+  This is derived from the ingredient order in the list.
