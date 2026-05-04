@@ -9,8 +9,10 @@ For this homework I also chose Python for the backend as I am personally more fa
 
 # How to run the project
 
-**Backend** (requires Python 3.11+ with a virtual environment):
+**Backend** (requires Python 3.11+ with a *virtual environment*):
 ```bash
+python -m venv venv
+source venv/bin/activate
 cd backend
 pip install -r requirements.txt
 python seed.py        # one-time: creates recipes.db with sample data
