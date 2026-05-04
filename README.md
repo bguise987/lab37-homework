@@ -7,6 +7,8 @@ Within the DATABASE.md it is noted that SQLite was chosen for simplicity of loca
 
 For this homework I also chose Python for the backend as I am personally more familiar with it at this time. Were I to stand up something at Lab37 though, I would look to Go first as that's the language the team seems to be standardizing around at this time (when standing up a new project or component I always consider both the technical requirements and current team strengths).
 
+I didn't spend any time looking closely at AWS infrastructure for this to consider cost, but given the performance specifications some of the smaller compute and database instances should suffice. I did create a performance test to see how my solution compared to the performance spec of 5,000-10,000 requests/day and I would expect to conduct similar performance testing with real infrastructure to ensure we're meeting customer expectations without spending too much on compute. Depending on availabilitty requirements I would also consider a multi-region setup.
+
 # How to run the project
 
 **Backend** (requires Python 3.11+ with a *virtual environment*):
@@ -70,6 +72,9 @@ Given the desire to keep time spent under 4 hours, shortcuts were certainly take
 - Don't *actually* delete any recipes within the database - this would make it easy for users to recover accidentally deleted content, and preserves data for company research and usage
 - Better user management - there should be owners, supervisors, team members, etc. with appropriate permissions at each level for different actions such as deleting a recipe
 - Better company management - users can belong to multiple companies in this, but it's a rudimentary setup. It should also be considered that perhaps a company would have multiple locations with disperate menus
+- For now the recipe management system assumes there is 1 robot kitchen model and it has a max capacity of 20 bins for ingredients. In the future this should account for more specific kitchen robot specifications and capabilities.
+- The way to input ingredients and instructions is fairly rudimentary. I could see a tighter integration with the robot capabilities where there could be drop downs to specify a type of ingredient bin, set the temperature/humidity, etc.
+- The ability to add pictures to the ingredients and recipes would be a nice future add on. The associated picture could be stored in S3 and the corresponding link stored into the database.
 
 # Claude Code Prompts Used
 - [Plan] You have parsed the markdown files for different architecture decisions for the recipe management system that I am implementing. Please take me through next
