@@ -25,12 +25,12 @@ function update(index, value) {
 
 function onDragStart(e, index) {
   dragIndex.value = index
-  e.dataTransfer.effectAllowed = 'move'
+  if (e.dataTransfer) e.dataTransfer.effectAllowed = 'move'
 }
 
 function onDragOver(e, index) {
   e.preventDefault()
-  e.dataTransfer.dropEffect = 'move'
+  if (e.dataTransfer) e.dataTransfer.dropEffect = 'move'
   dragOverIndex.value = index
 }
 
