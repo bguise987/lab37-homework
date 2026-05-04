@@ -79,6 +79,7 @@ Given the desire to keep time spent under 4 hours, shortcuts were certainly take
 - Better company management - users can belong to multiple companies in this, but it's a rudimentary setup. It should also be considered that perhaps a company would have multiple locations with disperate menus
 - For now the recipe management system assumes there is 1 robot kitchen model and it has a max capacity of 20 bins for ingredients. In the future this should account for more specific kitchen robot specifications and capabilities.
 - The way to input ingredients and instructions is fairly rudimentary. I could see a tighter integration with the robot capabilities where there could be drop downs to specify a type of ingredient bin, set the temperature/humidity, etc.
+    - It would also be nice to have a way to automatically calculate yield based on what is in the ingredients list
 - The ability to add pictures to the ingredients and recipes would be a nice future add on. The associated picture could be stored in S3 and the corresponding link stored into the database.
 
 # Claude Code Prompts Used
