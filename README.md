@@ -21,6 +21,8 @@ python seed.py        # one-time: creates recipes.db with sample data
 uvicorn main:app --reload --port 8000
 ```
 
+*Note* On your system you may need to run this as `python3` instead of `python`
+
 Interactive API docs available at http://localhost:8000/docs once running.
 
 **Frontend:**
