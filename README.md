@@ -51,3 +51,6 @@ Given the desire to keep time spent under 4 hours, shortcuts were certainly take
 -  Let's make a couple minor tweaks here. Upon login, let's show the company name that the user belongs to. Given that we support a user in multiple companies,
   let's show that as a list and let them select between them.
 - Let's make another tweak - the frontend should also display the username. Let's try the upperr right, close to the sign out button.
+- After those changes I cannot login to the system. It's saying, "Invalid username or password."
+- Please adjust the css on the DashboardView page to place the username directly underneath the "Sign out" button, like how company name is under "Recipes"
+    - Note: I hated the way this looked, so I discarded the change and edited the file myself.
