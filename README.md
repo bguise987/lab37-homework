@@ -36,6 +36,10 @@ npm run dev           # runs on http://localhost:5173
 | alice    | password1 | Acme Bakery |
 | bob      | password2 | Globex Foods |
 | carol    | password3 | Acme Bakery + Globex Foods |
+│ diana    │ password4 │ The Bowl Co. ││
+│ evan     │ password5 │ Poke Palace    │
+│ fiona    │ password6 │ Mesa Verde Kitchen
+│ grace    │ password7 │ Harvest Table
 
 # Testing
 Stress test backend:
@@ -102,3 +106,5 @@ Given the desire to keep time spent under 4 hours, shortcuts were certainly take
   This is derived from the ingredient order in the list.
 - Let's add a front end test to ensure that the user can appropriately add ingredients to a recipe. We want to ensure that they can type in the ingredients, bin
   numbers are appropriate, and bin numbers change if ingredients are dragged around the list.
+- Let's add some more test users to seed.py. Let's add 4 more users, each for a different company. Each company should also have 3 recipes loaded into it. These
+  recipes should be bowl based, so things like burrito bowls, poke bowls, Greek inspired bowls, salads, etc.
