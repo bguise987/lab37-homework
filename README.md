@@ -64,6 +64,11 @@ Ensure users can only access recipes from companies they are a part of:
 pytest tests/backend/test_company_isolation.py -v
 ```
 
+To run the front end tests:
+```bash
+cd frontend && npm test
+```
+
 # Next steps / future thoughts
 Given the desire to keep time spent under 4 hours, shortcuts were certainly taken. Below are some of the things I would look to implement in the future:
 - Real authentication, of course. Please don't tell all of my cybersecurity friends that I did an MVP with plaintext passwords :)
@@ -94,3 +99,5 @@ Given the desire to keep time spent under 4 hours, shortcuts were certainly take
   reorder the list. Do not change how the ingredients are stored in the database. The user should not be able to add more than 20 ingredients.
 - This looks awesome! We need to tweak how recipes are viewed though. Let's alter the ingredients list to automatically show which bin that ingredient belongs in.
   This is derived from the ingredient order in the list.
+- Let's add a front end test to ensure that the user can appropriately add ingredients to a recipe. We want to ensure that they can type in the ingredients, bin
+  numbers are appropriate, and bin numbers change if ingredients are dragged around the list.
