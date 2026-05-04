@@ -18,7 +18,10 @@ const filtered = computed(() =>
 
 onMounted(async () => {
   try {
-    const { data } = await axios.get('/api/recipes', { headers: auth.authHeaders() })
+    const { data } = await axios.get('/api/recipes', {
+      params: { company_id: auth.selectedCompanyId },
+      headers: auth.authHeaders(),
+    })
     recipes.value = data
   } catch {
     error.value = 'Failed to load recipes.'
@@ -34,8 +37,14 @@ async function handleLogout() {
 <template>
   <div class="page">
     <header>
-      <h1>Recipes</h1>
+      <div class="title-group">
+        <h1>Recipes</h1>
+        <span class="company-name">{{ auth.selectedCompany?.name }}</span>
+      </div>
       <div class="header-actions">
+        <button v-if="auth.companies.length > 1" class="btn-ghost" @click="router.push('/select-company')">
+          Switch company
+        </button>
         <button class="btn-secondary" @click="router.push('/recipes/new')">+ New Recipe</button>
         <button class="btn-ghost" @click="handleLogout">Sign out</button>
       </div>
@@ -57,9 +66,11 @@ async function handleLogout() {
 
 <style scoped>
 .page { max-width: 700px; margin: 2rem auto; padding: 0 1rem; }
-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
-h1 { margin: 0; }
-.header-actions { display: flex; gap: 0.5rem; }
+header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; gap: 1rem; }
+.title-group { display: flex; flex-direction: column; }
+h1 { margin: 0; line-height: 1.2; }
+.company-name { font-size: 0.85rem; color: #6b7280; margin-top: 0.1rem; }
+.header-actions { display: flex; gap: 0.5rem; flex-shrink: 0; }
 .search { width: 100%; padding: 0.5rem; border: 1px solid #ccc; border-radius: 4px; font-size: 1rem; box-sizing: border-box; margin-bottom: 1rem; }
 .recipe-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
 .recipe-list li { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 1rem; background: #fff; border: 1px solid #e5e7eb; border-radius: 6px; cursor: pointer; }

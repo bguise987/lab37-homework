@@ -8,9 +8,17 @@ class LoginRequest(BaseModel):
     password: str
 
 
+class CompanyInfo(BaseModel):
+    id: int
+    name: str
+
+    model_config = {"from_attributes": True}
+
+
 class LoginResponse(BaseModel):
     token: str
     user_id: int
+    companies: list[CompanyInfo]
 
 
 class RecipeBase(BaseModel):

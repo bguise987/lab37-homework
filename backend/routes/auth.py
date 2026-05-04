@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 
 from auth import create_session, delete_session, get_current_user
 from database import get_db
-from models import User
+from models import Company, User
 from schemas import LoginRequest, LoginResponse
 
 router = APIRouter(prefix="/api/auth", tags=["auth"])
@@ -19,7 +19,8 @@ def login(body: LoginRequest, db: Session = Depends(get_db)):
     user.last_login_at = datetime.now(timezone.utc)
     db.commit()
     token = create_session(user.id)
-    return LoginResponse(token=token, user_id=user.id)
+    companies = db.query(Company).filter(Company.id.in_(user.company_ids)).all()
+    return LoginResponse(token=token, user_id=user.id, companies=companies)
 
 
 @router.post("/logout", status_code=status.HTTP_204_NO_CONTENT)

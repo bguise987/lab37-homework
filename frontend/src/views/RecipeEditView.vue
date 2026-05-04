@@ -40,7 +40,7 @@ async function save() {
     ingredients: ingredients.value,
     instructions: instructions.value,
     yield_grams: yieldGrams.value !== '' ? Number(yieldGrams.value) : null,
-    company_id: isNew.value ? auth.userId : companyId.value,
+    company_id: isNew.value ? auth.selectedCompanyId : companyId.value,
   }
   try {
     if (isNew.value) {

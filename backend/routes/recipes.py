@@ -1,6 +1,6 @@
 from datetime import datetime, timezone
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.orm import Session
 
 from auth import get_current_user, require_company_access
@@ -12,7 +12,14 @@ router = APIRouter(prefix="/api/recipes", tags=["recipes"])
 
 
 @router.get("", response_model=list[RecipeResponse])
-def list_recipes(user: User = Depends(get_current_user), db: Session = Depends(get_db)):
+def list_recipes(
+    company_id: int | None = Query(default=None),
+    user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    if company_id is not None:
+        require_company_access(user, company_id)
+        return db.query(Recipe).filter(Recipe.company_id == company_id).all()
     return db.query(Recipe).filter(Recipe.company_id.in_(user.company_ids)).all()
 
 

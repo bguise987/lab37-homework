@@ -1,17 +1,38 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import axios from 'axios'
 
 export const useAuthStore = defineStore('auth', () => {
   const token = ref(localStorage.getItem('token') || '')
   const userId = ref(Number(localStorage.getItem('userId')) || null)
+  const companies = ref(JSON.parse(localStorage.getItem('companies') || '[]'))
+  const selectedCompanyId = ref(Number(localStorage.getItem('selectedCompanyId')) || null)
+
+  const selectedCompany = computed(() =>
+    companies.value.find(c => c.id === selectedCompanyId.value) ?? null
+  )
 
   async function login(username, password) {
     const { data } = await axios.post('/api/auth/login', { username, password })
     token.value = data.token
     userId.value = data.user_id
+    companies.value = data.companies
     localStorage.setItem('token', data.token)
     localStorage.setItem('userId', data.user_id)
+    localStorage.setItem('companies', JSON.stringify(data.companies))
+
+    // Auto-select if only one company
+    if (data.companies.length === 1) {
+      selectCompany(data.companies[0].id)
+    } else {
+      selectedCompanyId.value = null
+      localStorage.removeItem('selectedCompanyId')
+    }
+  }
+
+  function selectCompany(id) {
+    selectedCompanyId.value = id
+    localStorage.setItem('selectedCompanyId', id)
   }
 
   async function logout() {
@@ -20,8 +41,12 @@ export const useAuthStore = defineStore('auth', () => {
     } finally {
       token.value = ''
       userId.value = null
+      companies.value = []
+      selectedCompanyId.value = null
       localStorage.removeItem('token')
       localStorage.removeItem('userId')
+      localStorage.removeItem('companies')
+      localStorage.removeItem('selectedCompanyId')
     }
   }
 
@@ -29,5 +54,5 @@ export const useAuthStore = defineStore('auth', () => {
     return { Authorization: `Bearer ${token.value}` }
   }
 
-  return { token, userId, login, logout, authHeaders }
+  return { token, userId, companies, selectedCompanyId, selectedCompany, login, selectCompany, logout, authHeaders }
 })

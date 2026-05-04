@@ -48,3 +48,5 @@ Given the desire to keep time spent under 4 hours, shortcuts were certainly take
 - [Plan] You have parsed the markdown files for different architecture decisions for the recipe management system that I am implementing. Please take me through next
   steps to setup the initial implementation of this system.
 - I completed the Python dependency installation. Please proceed with scaffolding the frontend.
+-  Let's make a couple minor tweaks here. Upon login, let's show the company name that the user belongs to. Given that we support a user in multiple companies,
+  let's show that as a list and let them select between them.
