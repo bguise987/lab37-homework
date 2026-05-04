@@ -1,0 +1,14 @@
+# Database - SQLite
+- Tables
+    - Companies
+        - Each row contains the company name, unique ID, and address
+    - Users
+        - Each row contains the username, password (plain text), a list of company IDs they are associated with, account creation date and time (UTC), last login date and time (UTC)
+    - Recipes
+        - Stores the recipes for the system
+        - List of ingredients (\n separated)
+        - Instructions (\n separated)
+        - Yield info (grams)
+        - User ID of who created the recipe
+        - User ID of who last edited the recipe
+        - Company ID that the recipe belongs to

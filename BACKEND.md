@@ -1,0 +1,11 @@
+# Backend - Python and FastAPI
+- Authentication is basic - only enforce basic password protection (username and password)
+- Easy to startup and run on a local machine
+- Backend endpoints
+    - Add a recipe
+    - Delete a recipe
+    - Edit a recipe
+    - List all recipes
+        - Take in user ID and company ID, and only show recipes for the companies they have access to
+- Provide basic login and logout functionality
+    - username and password
